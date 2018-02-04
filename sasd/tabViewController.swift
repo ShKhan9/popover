@@ -8,20 +8,42 @@
 
 import UIKit
 
-class tabViewController: UITabBarController {
+class tabViewController: UITabBarController , UIPopoverPresentationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
+        
 
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "bbb") as! ttttViewController
+        vc.modalPresentationStyle = .popover //presentation style
+        
+        vc.preferredContentSize = CGSize(width: 150,height: 150)
+        vc.popoverPresentationController?.delegate = self
+        vc.popoverPresentationController?.sourceView = view
+        vc.popoverPresentationController?.sourceRect = self.tabBar.frame
+        self.present(vc, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return  .none
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 
